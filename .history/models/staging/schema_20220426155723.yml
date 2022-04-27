@@ -1,0 +1,56 @@
+
+version: 2
+
+models:
+  - name: github_pull_requests
+    description: "A table storing all pull request information of your repositories in GitHub. Use this to extrat information regarding pull requests."
+    columns:
+      - name: issue_id
+        description: "The unique identifier for the issue being resolved"
+        tests:
+          - unique
+          - not_null
+      - name: user_id
+        description: "The unique identifier for the user who created the issue"
+        tests:
+          - not_null
+      - name: issue_number
+        description: "The number of the pull request"
+        tests:
+          - unique
+          - not_null
+      - name: state
+        description: "The state of the pull request. Closed or open"
+        tests:
+          - unique
+          - not_null
+
+metrics:
+  - name: new_customers
+    label: New Customers
+    model: ref('dim_customers')
+    description: "The number of paid customers using the product"
+
+    type: count
+    sql: user_id # superfluous here, but shown as an example
+
+    timestamp: signup_date
+    time_grains: [day, week, month]
+
+    dimensions:
+      - plan
+      - country
+    
+    filters:
+      - field: is_paying
+        operator: 'is'
+        value: 'true'
+      - field: lifetime_value
+        operator: '>='
+        value: '100'
+      - field: company_name
+        operator: '!='
+        value: "'Acme, Inc'"
+      - field: signup_date
+        operator: '>='
+        value: "'2020-01-01'"

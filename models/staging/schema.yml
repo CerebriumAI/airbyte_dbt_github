@@ -1,0 +1,131 @@
+
+version: 2
+
+models:
+  - name: github_pull_requests
+    description: "A table storing all pull request information of your repositories in GitHub. Use this to extrat information regarding pull requests."
+    columns:
+      - name: issue_id
+        description: "The unique identifier for the issue being resolved"
+        tests:
+          - unique
+          - not_null
+      - name: user_id
+        description: "The unique identifier for the user who created the issue"
+        tests:
+          - not_null
+      - name: issue_number
+        description: "The number of the pull request"
+        tests:
+          - unique
+          - not_null
+      - name: state
+        description: "The state of the pull request. Closed or open"
+        tests:
+          - not_null
+      - name: title
+        description: "The title of the pull request"
+        tests:
+          - not_null
+      - name: repository
+        description: "The name of the repository"
+        tests:
+          - not_null
+      - name: link_url
+        description: "The url of the pull request"
+        tests:
+          - unique
+          - not_null
+      - name: commits
+        description: "The number of commits in the pull request"
+        tests:
+          - not_null
+      - name: comments
+        description: "The number of comments on the pull request"
+        tests:
+          - not_null
+      - name: login
+        description: "The login of the user who created the pull request"
+        tests:
+          - not_null
+      - name: reviewers_count
+        description: "The number of reviewers on the pull request"
+      - name: days_issue_open
+        description: "The number of dats the issue is open after being open"
+        tests:
+          - not_null
+      - name: days_until_first_review
+        description: "The number of days until the first review since the pull request was created"
+        tests:
+          - not_null
+      - name: closed_at
+        description: "The timestamp the pull request was closed"
+        tests:
+          - not_null
+      - name: created_at
+        description: "The timestamp the pull request was created"
+        tests:
+          - not_null
+      - name: updated_at
+        description: "The timestamp the pull request was updated"
+        tests:
+          - not_null
+
+metrics:
+  - name: num_pull_requests
+    label: Number of pull requests
+    model: ref('github_pull_requests')
+    description: "The number of pull requests"
+
+    type: count
+    sql: issue_id
+
+    timestamp: created_at
+    time_grains: [day, week, month]
+
+    dimensions:
+      - state
+
+  - name: avg_commits_per_pull_request
+    label: Average number of commits per pull request
+    model: ref('github_pull_requests')
+    description: "The average number of commits per pull request"
+
+    type: average
+    sql: commits
+
+    timestamp: created_at
+    time_grains: [day, week, month]
+
+  - name: avg_comments_per_pull_request
+    label: Average number of comments per pull request
+    model: ref('github_pull_requests')
+    description: "The average number of comments per pull request"
+
+    type: average
+    sql: comments
+
+    timestamp: created_at
+    time_grains: [day, week, month]
+  
+  - name: avg_days_open_per_pull_request
+    label: Average number of open days per pull request
+    model: ref('github_pull_requests')
+    description: "The average number of days pull requests remain open"
+
+    type: average
+    sql: days_issue_open
+
+    timestamp: created_at
+    time_grains: [day, week, month]
+  
+  - name: avg_days_until_first_review
+    label: Average number of days until first review
+    model: ref('github_pull_requests')
+    description: "The average number of days until the first review on a pull request"
+
+    type: average
+    sql: days_until_first_review
+
+    timestamp: created_at
+    time_grains: [day, week, month]
