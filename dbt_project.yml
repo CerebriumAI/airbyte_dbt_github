@@ -25,11 +25,9 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 
-
-# Configuring models
-# Full documentation: https://docs.getdbt.com/docs/configuring-models
-
-# In this example config, we tell dbt to build all models in the example/ directory
-# as tables. These settings can be overridden in the individual model files
-# using the `{{ config(...) }}` macro.
-
+vars:
+  github:
+    pull_requests: "github_cerebrium_airbyte.pull_requests"
+    issues: 'github_cerebrium_airbyte.issues'
+    pull_request_stats: 'github_cerebrium_airbyte.pull_request_stats'
+    reviews: 'github_cerebrium_airbyte.reviews'
