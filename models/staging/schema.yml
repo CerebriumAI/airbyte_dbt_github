@@ -72,7 +72,7 @@ models:
           - not_null
 
 metrics:
-  - name: num_pull_requests
+  - name: number_of_pull_requests
     label: Number of pull requests
     model: ref('github_pull_requests')
     description: "The number of pull requests"
@@ -86,7 +86,7 @@ metrics:
     dimensions:
       - state
 
-  - name: avg_commits_per_pull_request
+  - name: average_commits_per_pull_request
     label: Average number of commits per pull request
     model: ref('github_pull_requests')
     description: "The average number of commits per pull request"
@@ -97,7 +97,7 @@ metrics:
     timestamp: created_at
     time_grains: [day, week, month]
 
-  - name: avg_comments_per_pull_request
+  - name: average_comments_per_pull_request
     label: Average number of comments per pull request
     model: ref('github_pull_requests')
     description: "The average number of comments per pull request"
@@ -108,7 +108,7 @@ metrics:
     timestamp: created_at
     time_grains: [day, week, month]
   
-  - name: avg_days_open_per_pull_request
+  - name: average_days_open_per_pull_request
     label: Average number of open days per pull request
     model: ref('github_pull_requests')
     description: "The average number of days pull requests remain open"
@@ -119,7 +119,7 @@ metrics:
     timestamp: created_at
     time_grains: [day, week, month]
   
-  - name: avg_days_until_first_review
+  - name: average_days_until_first_review
     label: Average number of days until first review
     model: ref('github_pull_requests')
     description: "The average number of days until the first review on a pull request"
