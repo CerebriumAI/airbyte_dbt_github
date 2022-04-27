@@ -7,11 +7,12 @@ with pull_request as (
         state,
         locked,
         repository,
-        html_url as link_url,
+        "user"->>'id' as author_user_id,
+        "user"->>'login' as author_username,
+        url as link_url,
         created_at,
         updated_at,
         closed_at,
-        closed_at-created_at as days_issue_open,
         jsonb_array_length(requested_reviewers) as requested_reviewers_count
     from github_cerebrium_airbyte.pull_requests
 ),
@@ -35,16 +36,9 @@ pull_request_stats as (
     from github_cerebrium_airbyte.pull_request_stats
 ),
 
-pull_requests_assignees as (
-    select
-        node_id,
-        login
-    from github_cerebrium_airbyte.pull_requests_assignees
-),
-
 pull_request_reviews as (
     select
-        node_id,
+        pull_request_url,
         MIN(submitted_at) as first_review
     from github_cerebrium_airbyte.reviews
     group by 1
@@ -62,18 +56,16 @@ pull_request_union as (
         pull_request.link_url,
         pull_request_stats.commits,
         pull_request_stats.comments,
-        pull_requests_assignees.login,
         pull_request.requested_reviewers_count,
-        (pull_request.closed_at - pull_request.created_at) as days_issue_open,
-        (pull_request_reviews.first_review - pull_request.created_at) as days_until_first_review,
+        round((EXTRACT(epoch from pull_request.closed_at-pull_request.created_at)/3600)::decimal,2) as days_issue_open,
+        round((EXTRACT(epoch from pull_request_reviews.first_review - pull_request.created_at)/3600)::decimal,2) as days_until_first_review,
         pull_request.closed_at,
         pull_request.created_at,
         pull_request.updated_at
     from pull_request
     left join issues on pull_request.node_id = issues.node_id
     left join pull_request_stats on pull_request.node_id = pull_request_stats.node_id
-    left join pull_requests_assignees on pull_request.node_id = pull_requests_assignees.node_id
-    left join pull_request_reviews on pull_request.node_id = pull_request_reviews.node_id
+    left join pull_request_reviews on pull_request.link_url = pull_request_reviews.pull_request_url
 
 )
 
