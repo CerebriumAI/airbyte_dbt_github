@@ -3,6 +3,8 @@
 
 This package models Github data from [Airbyte's connector](https://airbyte.com/connectors/github).
 
+Let us know which connectors you would like to see next [here](https://19au6qz3a6s.typeform.com/to/c284SPEN)
+
 ## Models
 
 This package contains staging models, with the following naming conventions across all packages:
