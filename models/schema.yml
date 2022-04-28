@@ -14,15 +14,21 @@ sources:
       - name: issue_assignees
       - name: pull_request_stats
       - name: reviews
+      - name: commits
+      - name: commits_author
+      - name: commits_committer
+      - name: commits_commit
       - name: commit_comments_user
       - name: commit_comment_reactions_user
       - name: issue_comment_reactions_user
       - name: issue_events_issue_user
       - name: issue_reactions_user
       - name: pull_request_comment_reactions_user
+      - name: pull_request_commits
       - name: pull_requests_user
       - name: review_comments_user
       - name: reviews_user
+      - name: stargazers
       - name: stargazers_user
       - name: issues_assignees
       - name: issues_labels
@@ -57,7 +63,7 @@ models:
         description: "The title of the pull request"
         tests:
           - not_null
-      - name: repository
+      - name: repository_name
         description: "The name of the repository"
         tests:
           - not_null
@@ -89,6 +95,54 @@ models:
           - not_null
       - name: updated_at_timestamp
         description: "The timestamp the pull request was updated"
+        tests:
+          - not_null
+  - name: github__commits
+    description: "A table storing all commit information of your repositories in GitHub. Use this to extract information about commits in your repositories."
+    columns:
+      - name: sha
+        description: "The unique hash for the commit"
+        tests:
+          - unique
+          - not_null
+      - name: repository_name
+        description: "The name of the repository this commit was committed to"
+        tests:
+          - not_null
+      - name: pull_request_id
+        description: "The id of the pull request this commit is apart of"
+      - name: pull_request_number
+        description: "The number of the pull request this commit is apart of"
+      - name: author_id
+        description: "The unique identifier for the author of the commit"
+        tests:
+          - not_null
+      - name: author_type
+        description: "The type of user of the commit author"
+        tests:
+          - not_null
+      - name: author_username
+        description: "The username of the commit author"
+        tests:
+          - not_null
+      - name: committer_type
+        description: "The type of user of the commit committer"
+        tests:
+          - not_null
+      - name: committer_username
+        description: "The username of the commit comitter"
+        tests:
+          - not_null
+      - name: comment_count
+        description: "The number of comments on the commit"
+        tests:
+          - not_null
+      - name: message
+        description: "The message attached to the commit"
+        tests:
+          - not_null
+      - name: created_at
+        description: "The timestamp the commit was created"
         tests:
           - not_null
   - name: github__issues
@@ -150,7 +204,7 @@ models:
           - unique
           - not_null
       - name: url
-        description: "The url of the users profile"
+        description: "The url of the users pull_requestofile"
         tests:
           - unique
           - not_null
@@ -162,9 +216,32 @@ models:
         description: "The username of the user"
         tests:
           - not_null
+  - name: github__stargazers
+    description: "A table storing all information regarding repository stars by users"
+    columns:
+      - name: starred_at
+        description: "The timestamp the repository was starred"
+        tests:
+          - not_null
+      - name: user_id
+        description: "The unique identifier for the user"
+        tests:
+          - unique
+          - not_null
+      - name: user_type
+        description: "The type of the user"
+        tests:
+          - not_null
+      - name: username
+        description: "The username of the user"
+        tests:
+          - not_null
+      - name: is_site_admin
+        description: "A flag for whether the user was an admin of the organization"
+        tests:
+          - not_null
       
 
-        
 
 metrics:
   - name: number_of_pull_requests
