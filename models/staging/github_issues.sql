@@ -24,7 +24,7 @@ users as (
         id as user_id,
         login as user_username,
         _airbyte_issues_hashid
-    from {{ ref('issue_user') }}
+    from {{ var('issue_user') }}
 ),
 
 issues_unioned as (

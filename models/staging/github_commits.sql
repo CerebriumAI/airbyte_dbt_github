@@ -16,7 +16,7 @@ pr AS (
 	LEFT JOIN pr_commits USING(number)
 ),
 
-commits_authors AS (
+commits_author AS (
 	SELECT
 		_airbyte_commits_hashid,
 		id as author_id,
@@ -26,7 +26,7 @@ commits_authors AS (
 ),
 
 
-commits_committers AS (
+commits_committer AS (
 	SELECT
 		_airbyte_commits_hashid,
 		type as committer_type,
@@ -58,6 +58,6 @@ SELECT
 FROM
 	{{ var('commits') }}
 LEFT JOIN pr USING(sha)
-LEFT JOIN commits_authors USING(_airbyte_commits_hashid)
-LEFT JOIN commits_committers USING(_airbyte_commits_hashid)
+LEFT JOIN commits_author USING(_airbyte_commits_hashid)
+LEFT JOIN commits_committer USING(_airbyte_commits_hashid)
 LEFT JOIN commits_commit USING(_airbyte_commits_hashid)
