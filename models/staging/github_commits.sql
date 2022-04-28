@@ -3,7 +3,7 @@ WITH pr_commits AS (
 		sha,
 		pull_number as number
 	FROM
-		{{ var('pull_request_cmmits') }}.pull_request_commits
+		{{ var('pull_request_commits') }}
 ),
 
 pr AS (
@@ -12,7 +12,7 @@ pr AS (
 		number as pr_number,
 		sha
 	FROM
-		{{ var('pull_requests') }}.pull_requests
+		{{ var('pull_requests') }}
 	LEFT JOIN pr_commits USING(number)
 )
 

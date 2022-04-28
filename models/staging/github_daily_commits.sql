@@ -8,12 +8,6 @@ SELECT
 	committer->>'login' as comitter_username,
 	count(*) as commits
 FROM
-	github_lowlighter_demo.commits
+	{{ var('commits') }}
 GROUP BY
-	date_trunc('day', created_at),
-	repository,
-	author->>'id',
-	author->>'type',
-	author->>'login',
-	committer->>'type',
-	committer->>'login'
+	1,2,3,4,5,6
