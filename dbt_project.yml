@@ -27,7 +27,21 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 vars:
   github:
-    pull_requests: "github_cerebrium_airbyte.pull_requests"
-    issues: 'github_cerebrium_airbyte.issues'
-    pull_request_stats: 'github_cerebrium_airbyte.pull_request_stats'
-    reviews: 'github_cerebrium_airbyte.reviews'
+    pull_requests: "{{ source('github','pull_requests') }}"
+    issues_pull_request: "{{ source('github','issues_pull_request') }}"
+    issues: "{{ source('github','issues') }}"
+    issues_user: "{{ source('github','issues_user') }}"
+    labels: "{{ source('github','issues_labels') }}"
+    issue_assignees: "{{ source('github','issues_assignees') }}"
+    pull_request_stats: "{{ source('github','pull_request_stats') }}"
+    reviews: "{{ source('github','reviews') }}"
+    commit_comments_user: "{{ source('github','commit_comments_user') }}"
+    commit_comment_reactions_user: "{{ source('github','commit_comment_reactions_user') }}"
+    issue_comment_reactions_user: "{{ source('github','issue_comment_reactions_user') }}"
+    issue_events_issue_user: "{{ source('github','issue_events_issue_user') }}"
+    issue_reactions_user: "{{ source('github','issue_reactions_user') }}"
+    pull_request_comment_reactions_user: "{{ source('github','pull_request_comment_reactions_user') }}"
+    pull_requests_user: "{{ source('github','pull_requests_user') }}"
+    review_comments_user: "{{ source('github','review_comments_user') }}"
+    reviews_user: "{{ source('github','reviews_user') }}"
+    stargazers_user: "{{ source('github','stargazers_user') }}"
