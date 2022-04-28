@@ -5,7 +5,7 @@ with stargazers_users as (
         type as user_type,
         login as username
     from
-        github_lowlighter_demo.stargazers_user
+        {{ var('stargazers_user') }}
 ),
 
 stargazers as (
@@ -17,7 +17,7 @@ stargazers as (
         username,
         is_site_admin
     from
-        github_lowlighter_demo.stargazers
+        {{ var('stargazers') }}
     left join stargazers_users using(_airbyte_stargazers_hashid)
 )
 
