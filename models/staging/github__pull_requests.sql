@@ -1,6 +1,4 @@
-
 with pull_requests as (
-
     select
         id as pull_request_id,
         _airbyte_pull_requests_hashid,
@@ -8,7 +6,7 @@ with pull_requests as (
         title,
         state,
         locked,
-        repository,
+        repository as repository_name,
         url as link_url,
         created_at,
         updated_at,
@@ -62,7 +60,7 @@ pull_request_union as (
         issues.issue_number,
         pull_requests.state,
         pull_requests.title,
-        pull_requests.repository,
+        pull_requests.repository_name,
         pull_requests.link_url,
         pull_request_stats.commits,
         pull_request_stats.comments,
