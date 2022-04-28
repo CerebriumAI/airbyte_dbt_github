@@ -11,7 +11,7 @@ with stargazers_users as (
 stargazers as (
     select
         starred_at,
-        repository,
+        repository as repository_name,
         user_id,
         user_type,
         username,

@@ -36,7 +36,7 @@ models:
         description: "The title of the pull request"
         tests:
           - not_null
-      - name: repository
+      - name: repository_name
         description: "The name of the repository"
         tests:
           - not_null
@@ -78,7 +78,7 @@ models:
         tests:
           - unique
           - not_null
-      - name: repository
+      - name: repository_name
         description: "The name of the repository this commit was committed to"
         tests:
           - not_null
