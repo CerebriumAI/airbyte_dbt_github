@@ -12,6 +12,10 @@ This package contains staging models, with the following naming conventions acro
  * Timestamps are appended with `_timestamp`
  * ID primary keys are prefixed with the name of the table. For example, the campaign table's ID column is renamed `campaign_id`.
 
+## DBT Metrics
+
+This package contains configurations for DBT metrics for you to get up and running quickly with standard Github metrics in your existing BI tools.
+
 ## Installation Instructions
 
 Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions, or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
@@ -55,7 +59,7 @@ dispatch:
 ```
 ## Contributions
 
-Additional contributions to this package are very welcome! Please create issues or open PRs against `master`. Check out [this post](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657) on the best workflow for contributing to a package.
+Additional contributions to this package are very welcome! Please create issues or open PRs against `master`. Check out [this post](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657) on the best workflow for contributing to a package. Suggestions to the DBT metrics are welcome too!
 
 ## Resources:
 - Provide [feedback](https://19au6qz3a6s.typeform.com/to/c284SPEN) on our existing dbt packages or what you'd like to see next
