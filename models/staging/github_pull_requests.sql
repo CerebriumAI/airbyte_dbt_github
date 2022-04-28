@@ -2,6 +2,7 @@
 with pull_request as (
 
     select
+        id as pull_request_id,
         node_id,
         title,
         state,
@@ -10,11 +11,18 @@ with pull_request as (
         "user"->>'id' as author_user_id,
         "user"->>'login' as author_username,
         url as link_url,
-        created_at_timestamp,
-        updated_at_timestamp,
-        closed_at_timestamp,
+        created_at,
+        updated_at,
+        closed_at,
         jsonb_array_length(requested_reviewers) as requested_reviewers_count
     from {{ var('pull_requests') }}
+),
+
+pull_request_users as (
+    select 
+        id as author_user_id,
+        login as author_username
+    from {{ var('pull_requests_user') }}
 ),
 
 issues as (
@@ -46,6 +54,7 @@ pull_request_reviews as (
 pull_request_union as (
 
     select
+        pull_request.pull_request_id,
         issues.issue_id,
         pull_request.author_user_id,
         pull_request.author_username,
@@ -57,11 +66,11 @@ pull_request_union as (
         pull_request_stats.commits,
         pull_request_stats.comments,
         pull_request.requested_reviewers_count,
-        ({{ dbt_utils.datediff('pull_request.created_at', 'pull_request.closed_at', 'minute') }}/1440) as days_issue_open,
+        ({{ dbt_utils.datediff('pull_request.created_at', 'pull_request.closed_at', 'minute') }}/1440) as days_pull_request_open,
         ({{ dbt_utils.datediff('pull_request.created_at', 'pull_request_reviews.first_review', 'minute') }}/1440) as days_until_first_review,
-        pull_request.closed_at_timestamp,
-        pull_request.created_at_timestamp,
-        pull_request.updated_at_timestamp
+        pull_request.closed_at as closed_at_timestamp,
+        pull_request.created_at as created_at_timestamp,
+        pull_request.updated_at as updated_at_timestamp
     from pull_request
     left join issues on pull_request.node_id = issues.node_id
     left join pull_request_stats on pull_request.node_id = pull_request_stats.node_id

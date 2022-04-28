@@ -27,7 +27,20 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 vars:
   github:
-    pull_requests: "github_cerebrium_airbyte.pull_requests"
-    issues: 'github_cerebrium_airbyte.issues'
-    pull_request_stats: 'github_cerebrium_airbyte.pull_request_stats'
-    reviews: 'github_cerebrium_airbyte.reviews'
+    pull_requests: "github_lowlighter_demo.pull_requests"
+    issues: 'github_lowlighter_demo.issues'
+    labels: 'github_lowlighter_demo.issues_labels'
+    issue_assignees: 'github_lowlighter_demo.issues_assignees'
+    pull_request_stats: 'github_lowlighter_demo.pull_request_stats'
+    reviews: 'github_lowlighter_demo.reviews'
+    commit_comments_user: 'github_lowlighter_demo.commit_comments_user'
+    commit_comment_reactions_user: 'github_lowlighter_demo.commit_comment_reactions_user'
+    issue_comment_reactions_user: 'github_lowlighter_demo.issue_comment_reactions_user'
+    issue_events_issue_user: 'github_lowlighter_demo.issue_events_issue_user'
+    issue_reactions_user: 'github_lowlighter_demo.issue_reactions_user'
+    issues_user: 'github_lowlighter_demo.issues_user'
+    pull_request_comment_reactions_user: 'github_lowlighter_demo.pull_request_comment_reactions_user'
+    pull_requests_user: 'github_lowlighter_demo.pull_requests_user'
+    review_comments_user: 'github_lowlighter_demo.review_comments_user'
+    reviews_user: 'github_lowlighter_demo.reviews_user'
+    stargazers_user: 'github_lowlighter_demo.stargazers_user'
