@@ -1,6 +1,4 @@
-{{ config(materialized='table', schema=var('target_schema')) }}
-
-with pr_commits as (
+with pull_request_commits as (
     select
         sha,
         pull_number as number
@@ -8,14 +6,14 @@ with pr_commits as (
         {{ var('pull_request_commits') }}
 ),
 
-pr as (
+pull_request as (
     select
-        id AS pr_id,
-        number as pr_number,
+        id AS pull_request_id,
+        number as pull_request_number,
         sha
     from
         {{ var('pull_requests') }}
-    left join pr_commits using(number)
+    left join pull_request_commits using(number)
 ),
 
 commits_author as (
@@ -49,8 +47,8 @@ commits as (
         sha,
         created_at,
         repository,
-        pr_id,
-        pr_number,
+        pull_request_id,
+        pull_request_number,
         author_id,
         author_type,
         author_username,
@@ -60,7 +58,7 @@ commits as (
         message
     from
         {{ var('commits') }}
-    left join pr using(sha)
+    left join pull_request using(sha)
     left join commits_author USING(_airbyte_commits_hashid)
     left join commits_committer USING(_airbyte_commits_hashid)
     left join commits_commit USING(_airbyte_commits_hashid)

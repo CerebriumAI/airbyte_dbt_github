@@ -1,5 +1,3 @@
-{{ config(materialized='table', schema=var('target_schema')) }}
-
 with issues as (
     select
         id as issue_id,

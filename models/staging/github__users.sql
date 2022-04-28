@@ -1,5 +1,3 @@
-{{ config(materialized='table', schema=var('target_schema')) }}
-
 with commit_comments_user as (
     select
         id as user_id,

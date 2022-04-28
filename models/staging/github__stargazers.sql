@@ -1,9 +1,7 @@
-{{ config(materialized='table', schema=var('target_schema')) }}
-
 with stargazers_users as (
     select
         _airbyte_stargazers_hashid,
-        site_admin,
+        site_admin as is_site_admin,
         type as user_type,
         login as username
     from
@@ -17,7 +15,7 @@ stargazers as (
         user_id,
         user_type,
         username,
-        site_admin
+        is_site_admin
     from
         github_lowlighter_demo.stargazers
     left join stargazers_users using(_airbyte_stargazers_hashid)

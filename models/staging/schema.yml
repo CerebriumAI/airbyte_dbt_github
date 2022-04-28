@@ -82,9 +82,9 @@ models:
         description: "The name of the repository this commit was committed to"
         tests:
           - not_null
-      - name: pr_id
+      - name: pull_request_id
         description: "The id of the pull request this commit is apart of"
-      - name: pr_number
+      - name: pull_request_number
         description: "The number of the pull request this commit is apart of"
       - name: author_id
         description: "The unique identifier for the author of the commit"
@@ -177,7 +177,7 @@ models:
           - unique
           - not_null
       - name: url
-        description: "The url of the users profile"
+        description: "The url of the users pull_requestofile"
         tests:
           - unique
           - not_null
@@ -209,7 +209,7 @@ models:
         description: "The username of the user"
         tests:
           - not_null
-      - name: site_admin
+      - name: is_site_admin
         description: "A flag for whether the user was an admin of the organization"
         tests:
           - not_null

@@ -1,5 +1,3 @@
-{{ config(materialized='table', schema=var('target_schema')) }}
-
 with pull_requests as (
     select
         id as pull_request_id,
