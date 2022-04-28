@@ -5,6 +5,27 @@ sources:
   - name: github
     schema: "{{ var('github_schema', 'github') }}"
     database: "{% if target.type != 'spark'%}{{ var('github_database', target.database) }}{% endif %}"
+    tables:
+      - name: pull_requests
+      - name: issues_pull_request
+      - name: issues
+      - name: issues_user
+      - name: labels
+      - name: issue_assignees
+      - name: pull_request_stats
+      - name: reviews
+      - name: commit_comments_user
+      - name: commit_comment_reactions_user
+      - name: issue_comment_reactions_user
+      - name: issue_events_issue_user
+      - name: issue_reactions_user
+      - name: pull_request_comment_reactions_user
+      - name: pull_requests_user
+      - name: review_comments_user
+      - name: reviews_user
+      - name: stargazers_user
+      - name: issues_assignees
+      - name: issues_labels
 
 models:
   - name: github__pull_requests
