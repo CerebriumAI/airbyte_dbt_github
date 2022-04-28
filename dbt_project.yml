@@ -28,7 +28,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 vars:
   github:
     pull_requests: "github_lowlighter_demo.pull_requests"
+    issues_pull_request: "github_lowlighter_demo.issues_pull_request"
     issues: 'github_lowlighter_demo.issues'
+    issues_user: 'github_lowlighter_demo.issues_user'
     labels: 'github_lowlighter_demo.issues_labels'
     issue_assignees: 'github_lowlighter_demo.issues_assignees'
     pull_request_stats: 'github_lowlighter_demo.pull_request_stats'
@@ -42,7 +44,6 @@ vars:
     issue_comment_reactions_user: 'github_lowlighter_demo.issue_comment_reactions_user'
     issue_events_issue_user: 'github_lowlighter_demo.issue_events_issue_user'
     issue_reactions_user: 'github_lowlighter_demo.issue_reactions_user'
-    issues_user: 'github_lowlighter_demo.issues_user'
     pull_request_comment_reactions_user: 'github_lowlighter_demo.pull_request_comment_reactions_user'
     pull_request_commits: "github_lowlighter_demo.pull_request_commits"
     pull_requests_user: 'github_lowlighter_demo.pull_requests_user'

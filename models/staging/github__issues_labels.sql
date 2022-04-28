@@ -1,11 +1,17 @@
+{{ config(materialized='table', schema=var('target_schema')) }}
+
 with issues as (
-    select *
+    select
+        id as issue_id,
+        _airbyte_issues_hashid
     from {{ var('issues') }}
 
 ),
 
 labels as (
-    select *
+    select
+        id as label_id,
+        _airbyte_issues_hashid
     from {{ var('labels') }}
 ),
 

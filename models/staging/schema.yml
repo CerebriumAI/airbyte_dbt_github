@@ -7,8 +7,8 @@ sources:
     database: "{% if target.type != 'spark'%}{{ var('github_database', target.database) }}{% endif %}"
 
 models:
-  - name: github_pull_requests
-    description: "A table storing all pull request information of your repositories in GitHub. Use this to extract information regarding pull requests."
+  - name: github__pull_requests
+    description: "A table storing all pull request information of your repositories in GitHub. Use this to extrat information regarding pull requests."
     columns:
       - name: issue_id
         description: "The unique identifier for the issue being resolved"
@@ -70,7 +70,7 @@ models:
         description: "The timestamp the pull request was updated"
         tests:
           - not_null
-  - name: github_commits
+  - name: github__commits
     description: "A table storing all commit information of your repositories in GitHub. Use this to extract information about commits in your repositories."
     columns:
       - name: sha
@@ -118,17 +118,114 @@ models:
         description: "The timestamp the commit was created"
         tests:
           - not_null
+  - name: github__issues
+    description: "A table storing all issue information of your repositories in GitHub. Use this to extrat information regarding issues."
+    columns:
+      - name: issue_id
+        description: "The unique identifier for the issue being resolved"
+        tests:
+          - unique
+          - not_null
+      - name: state
+        description: "The state of the issue. Closed or open"
+        tests:
+          - not_null
+      - name: title
+        description: "The title of the issue"
+        tests:
+          - not_null
+      - name: issue_number
+        description: "The number of the issue"
+        tests:
+          - unique
+          - not_null
+      - name: author_username
+        description: "The username of the user who raised the issue"
+        tests:
+          - not_null
+      - name: author_association
+        description: "The association of the user. If they are a user, contributor etc"
+        tests:
+          - not_null
+      - name: assignee_username
+        description: "The username of the person who is assigned to the issue"
+        tests:
+      - name: comments
+        description: "The number of comments that have appeared on the issue"
+        tests:
+          - not_null
+      - name: days_issue_open
+        description: "The number of days the issue has been open"
+        tests:
+      - name: created_at_timestamp
+        description: "The timestamp the issue was created"
+        tests:
+          - not_null
+      - name: updated_at_timestamp
+        description: "The timestamp the issue was updated"
+        tests:
+          - not_null
+      - name: closed_at_timestamp
+        description: "The timestamp the issue was closed"
+        tests:
+  - name: github__users
+    description: "A table storing all information regarding users in Github that have interacted with your repository"
+    columns:
+      - name: user_id
+        description: "The unique identifier for the user"
+        tests:
+          - unique
+          - not_null
+      - name: url
+        description: "The url of the users profile"
+        tests:
+          - unique
+          - not_null
+      - name: type
+        description: "The type of user"
+        tests:
+          - not_null
+      - name: username
+        description: "The username of the user"
+        tests:
+          - not_null
+  - name: github__stargazers
+    description: "A table storing all information regarding repository stars by users"
+    columns:
+      - name: starred_at
+        description: "The timestamp the repository was starred"
+        tests:
+          - not_null
+      - name: user_id
+        description: "The unique identifier for the user"
+        tests:
+          - unique
+          - not_null
+      - name: user_type
+        description: "The type of the user"
+        tests:
+          - not_null
+      - name: username
+        description: "The username of the user"
+        tests:
+          - not_null
+      - name: site_admin
+        description: "A flag for whether the user was an admin of the organization"
+        tests:
+          - not_null
+      
+
 
 metrics:
   - name: number_of_pull_requests
     label: Number of pull requests
-    model: ref('github_pull_requests')
+    model: ref('github__pull_requests')
     description: "The number of pull requests"
 
     type: count
     sql: issue_id
 
-    timestamp: created_at
+    timestamp: created_at_timestamp
     time_grains: [day, week, month]
 
     dimensions:
@@ -136,44 +233,83 @@ metrics:
 
   - name: average_commits_per_pull_request
     label: Average number of commits per pull request
-    model: ref('github_pull_requests')
+    model: ref('github__pull_requests')
     description: "The average number of commits per pull request"
 
     type: average
     sql: commits
 
-    timestamp: created_at
+    timestamp: created_at_timestamp
     time_grains: [day, week, month]
 
   - name: average_comments_per_pull_request
     label: Average number of comments per pull request
-    model: ref('github_pull_requests')
+    model: ref('github__pull_requests')
     description: "The average number of comments per pull request"
 
     type: average
     sql: comments
 
-    timestamp: created_at
+    timestamp: created_at_timestamp
     time_grains: [day, week, month]
   
   - name: average_days_open_per_pull_request
     label: Average number of open days per pull request
-    model: ref('github_pull_requests')
+    model: ref('github__pull_requests')
     description: "The average number of days pull requests remain open"
 
     type: average
     sql: days_issue_open
 
-    timestamp: created_at
+    timestamp: created_at_timestamp
     time_grains: [day, week, month]
   
   - name: average_days_until_first_review
     label: Average number of days until first review
-    model: ref('github_pull_requests')
+    model: ref('github__pull_requests')
     description: "The average number of days until the first review on a pull request"
 
     type: average
     sql: days_until_first_review
 
-    timestamp: created_at
+    timestamp: created_at_timestamp
     time_grains: [day, week, month]
+
+  - name: number_of_issues
+    label: The number of issues
+    model: ref('github__issues')
+    description: "The number of issues in the repository"
+
+    type: count
+    sql: issue_id
+
+    timestamp: created_at_timestamp
+    time_grains: [day, week, month]
+
+    dimensions:
+      - state
+      - author_association
+
+  - name: average_number_of_comments
+    label: The average number of comments
+    model: ref('github__issues')
+    description: "The average number of comments in each repository"
+
+    type: average
+    sql: comments
+
+    timestamp: created_at_timestamp
+    time_grains: [day, week, month]
+
+  - name: average_number_of_days_issue_open
+    label: The average number of days issue open
+    model: ref('github__issues')
+    description: "The average number of days issues remain open"
+
+    type: average
+    sql: days_issue_open
+
+    timestamp: created_at_timestamp
+    time_grains: [day, week, month]
+
+    
