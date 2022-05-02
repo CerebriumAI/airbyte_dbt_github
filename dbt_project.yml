@@ -16,34 +16,34 @@ clean-targets:
   - "dbt_packages"
 
 models:
-  github:
+  airbyte_github:
     materialized: table
     intermediate:
       materialized: ephemeral
 
 vars:
-  github:
-    pull_requests: "{{ source('github','pull_requests') }}"
-    issues_pull_request: "{{ source('github','issues_pull_request') }}"
-    issues: "{{ source('github','issues') }}"
-    issues_user: "{{ source('github','issues_user') }}"
-    labels: "{{ source('github','issues_labels') }}"
-    issue_assignees: "{{ source('github','issues_assignees') }}"
-    pull_request_stats: "{{ source('github','pull_request_stats') }}"
-    reviews: "{{ source('github','reviews') }}"
-    commits: "{{ source('github','commits') }}"
-    commits_author: "{{ source('github','commits_author') }}"
-    commits_committer: "{{ source('github','commits_committer') }}"
-    commits_commit: "{{ source('github','commits_commit') }}"
-    commit_comments_user: "{{ source('github','commit_comments_user') }}"
-    commit_comment_reactions_user: "{{ source('github','commit_comment_reactions_user') }}"
-    issue_comment_reactions_user: "{{ source('github','issue_comment_reactions_user') }}"
-    issue_events_issue_user: "{{ source('github','issue_events_issue_user') }}"
-    issue_reactions_user: "{{ source('github','issue_reactions_user') }}"
-    pull_request_comment_reactions_user: "{{ source('github','pull_request_comment_reactions_user') }}"
-    pull_request_commits: "{{ source('github','pull_request_commits') }}"
-    pull_requests_user: "{{ source('github','pull_requests_user') }}"
-    review_comments_user: "{{ source('github','review_comments_user') }}"
-    reviews_user: "{{ source('github','reviews_user') }}"
-    stargazers: "{{ source('github','stargazers') }}"
-    stargazers_user: "{{ source('github','stargazers_user') }}"
+  airbyte_github:
+    pull_requests: "{{ source('airbyte_github','pull_requests') }}"
+    issues_pull_request: "{{ source('airbyte_github','issues_pull_request') }}"
+    issues: "{{ source('airbyte_github','issues') }}"
+    issues_user: "{{ source('airbyte_github','issues_user') }}"
+    labels: "{{ source('airbyte_github','issues_labels') }}"
+    issue_assignees: "{{ source('airbyte_github','issues_assignees') }}"
+    pull_request_stats: "{{ source('airbyte_github','pull_request_stats') }}"
+    reviews: "{{ source('airbyte_github','reviews') }}"
+    commits: "{{ source('airbyte_github','commits') }}"
+    commits_author: "{{ source('airbyte_github','commits_author') }}"
+    commits_committer: "{{ source('airbyte_github','commits_committer') }}"
+    commits_commit: "{{ source('airbyte_github','commits_commit') }}"
+    commit_comments_user: "{{ source('airbyte_github','commit_comments_user') }}"
+    commit_comment_reactions_user: "{{ source('airbyte_github','commit_comment_reactions_user') }}"
+    issue_comment_reactions_user: "{{ source('airbyte_github','issue_comment_reactions_user') }}"
+    issue_events_issue_user: "{{ source('airbyte_github','issue_events_issue_user') }}"
+    issue_reactions_user: "{{ source('airbyte_github','issue_reactions_user') }}"
+    pull_request_comment_reactions_user: "{{ source('airbyte_github','pull_request_comment_reactions_user') }}"
+    pull_request_commits: "{{ source('airbyte_github','pull_request_commits') }}"
+    pull_requests_user: "{{ source('airbyte_github','pull_requests_user') }}"
+    review_comments_user: "{{ source('airbyte_github','review_comments_user') }}"
+    reviews_user: "{{ source('airbyte_github','reviews_user') }}"
+    stargazers: "{{ source('airbyte_github','stargazers') }}"
+    stargazers_user: "{{ source('airbyte_github','stargazers_user') }}"
