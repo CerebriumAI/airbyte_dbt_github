@@ -35,7 +35,7 @@ sources:
 
 models:
   - name: github__pull_requests
-    description: "A table storing all pull request information of your repositories in GitHub. Use this to extrat information regarding pull requests."
+    description: "A table storing all pull request information of your repositories in GitHub. Use this to extract information regarding pull requests."
     columns:
       - name: issue_id
         description: "The unique identifier for the issue being resolved"
@@ -130,7 +130,7 @@ models:
         tests:
           - not_null
       - name: committer_username
-        description: "The username of the commit comitter"
+        description: "The username of the commit committer"
         tests:
           - not_null
       - name: comment_count
@@ -146,7 +146,7 @@ models:
         tests:
           - not_null
   - name: github__issues
-    description: "A table storing all issue information of your repositories in GitHub. Use this to extrat information regarding issues."
+    description: "A table storing all issue information of your repositories in GitHub. Use this to extract information regarding issues."
     columns:
       - name: issue_id
         description: "The unique identifier for the issue being resolved"
@@ -204,7 +204,7 @@ models:
           - unique
           - not_null
       - name: url
-        description: "The url of the users pull_requestofile"
+        description: "The url of the users pull_request"
         tests:
           - unique
           - not_null
@@ -240,7 +240,7 @@ models:
         description: "A flag for whether the user was an admin of the organization"
         tests:
           - not_null
-      
+
 
 
 metrics:
@@ -279,7 +279,7 @@ metrics:
 
     timestamp: created_at_timestamp
     time_grains: [day, week, month]
-  
+
   - name: average_days_open_per_pull_request
     label: Average number of open days per pull request
     model: ref('github__pull_requests')
@@ -290,7 +290,7 @@ metrics:
 
     timestamp: created_at_timestamp
     time_grains: [day, week, month]
-  
+
   - name: average_days_until_first_review
     label: Average number of days until first review
     model: ref('github__pull_requests')
@@ -339,4 +339,3 @@ metrics:
     timestamp: created_at_timestamp
     time_grains: [day, week, month]
 
-    
