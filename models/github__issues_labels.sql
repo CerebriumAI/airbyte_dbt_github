@@ -10,7 +10,7 @@ labels as (
     select 
         label_id,
         _airbyte_issues_hashid
-    {{ ref('stg_github_labels_tmp') }}
+    from {{ ref('stg_github_labels_tmp') }}
 ),
 
 issue_labels as (

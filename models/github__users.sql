@@ -13,7 +13,7 @@ commit_comment_reactions_user as (
         url,
         type,
         username
-    from {{ ref('stg_github_commit_comment_reactions_user') }}
+    from {{ ref('stg_github_commit_comment_reactions_user_tmp') }}
 ),
 
 issue_comment_reactions_user as (
@@ -22,7 +22,7 @@ issue_comment_reactions_user as (
         url,
         type,
         username
-    from {{ ref('stg_github_issue_comment_reactions_user') }}
+    from {{ ref('stg_github_issue_comment_reactions_user_tmp') }}
 ),
 
 issue_events_issue_user as (
@@ -31,14 +31,16 @@ issue_events_issue_user as (
         url,
         type,
         username
-    from {{ ref('stg_github_issue_events_issue_user') }}
+    from {{ ref('stg_github_issue_events_issue_user_tmp') }}
 ),
 
 issue_reactions_user as (
     select 
         user_id,
+        url,
+        type,
         username
-    from {{ ref('stg_github_issue_reactions_user') }}
+    from {{ ref('stg_github_issue_reactions_user_tmp') }}
 ),
 
 issues_user as (
@@ -46,8 +48,8 @@ issues_user as (
         user_id,
         url,
         type,
-        username
-    from {{ ref('stg_github_issues_user') }}
+        author_username as username
+    from {{ ref('stg_github_issues_user_tmp') }}
 ),
 
 pull_request_comment_reactions_user as (
@@ -56,7 +58,7 @@ pull_request_comment_reactions_user as (
         url,
         type,
         username
-    from {{ ref('stg_github_pull_request_comment_reactions_user') }}
+    from {{ ref('stg_github_pull_request_comment_reactions_user_tmp') }}
 ),
 
 pull_requests_user as (
@@ -65,7 +67,7 @@ pull_requests_user as (
         url,
         type,
         author_username as username
-    from {{ ref('stg_github_pull_requests_user') }}
+    from {{ ref('stg_github_pull_requests_users_tmp') }}
 ),
 
 review_comments_user as (
@@ -74,7 +76,7 @@ review_comments_user as (
         url,
         type,
         username
-    from {{ ref('stg_github_review_comments_user') }}
+    from {{ ref('stg_github_review_comments_user_tmp') }}
 ),
 
 reviews_user as (
@@ -83,7 +85,7 @@ reviews_user as (
         url,
         type,
         username
-    from {{ ref('stg_github_reviews_user') }}
+    from {{ ref('stg_github_reviews_user_tmp') }}
 ),
 
 stargazers_user as (
@@ -92,7 +94,7 @@ stargazers_user as (
         url,
         type,
         username
-    from {{ ref('stg_github_stargazers_user') }}
+    from {{ ref('stg_github_stargazers_user_tmp') }}
 ),
 
 users_unioned as (

@@ -20,7 +20,7 @@ pull_request_users as (
         author_user_id,
         author_username,
         _airbyte_pull_requests_hashid
-    from {{ ref('stg_github_pull_requests_user_tmp') }}
+    from {{ ref('stg_github_pull_requests_users_tmp') }}
 ),
 
 issues as (

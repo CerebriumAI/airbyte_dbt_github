@@ -24,7 +24,6 @@ commits_author as (
     from {{ ref('stg_github_commits_author_tmp') }}
 ),
 
-
 commits_committer as (
     select
         _airbyte_commits_hashid,
@@ -41,10 +40,10 @@ commits_commit as (
     from {{ ref('stg_github_commits_commit_tmp') }}
 ),
 
-commmits as (
+commits as (
     select *
     from {{ ref('stg_github_commits_tmp') }}
-)
+),
 
 github_commits as (
     select
