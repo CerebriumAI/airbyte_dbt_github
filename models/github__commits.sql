@@ -48,7 +48,6 @@ commits as (
 github_commits as (
     select
         sha,
-        created_at,
         repository,
         pull_request_id,
         pull_request_number,
@@ -58,12 +57,14 @@ github_commits as (
         committer_type,
         committer_username,
         comment_count,
-        message
+        message,
+        created_at
     from commits
     left join pull_request using(sha)
     left join commits_author USING(_airbyte_commits_hashid)
     left join commits_committer USING(_airbyte_commits_hashid)
     left join commits_commit USING(_airbyte_commits_hashid)
+    
 )
 
 select * from github_commits
