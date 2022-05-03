@@ -2,8 +2,7 @@ with pull_request_commits as (
     select
         sha,
         pull_number as number
-    from
-        {{ var('pull_request_commits') }}
+    from {{ ref('stg_github_pull_request_commits_tmp') }}
 ),
 
 pull_request as (
@@ -12,7 +11,7 @@ pull_request as (
         number as pull_request_number,
         sha
     from
-        {{ var('pull_requests') }}
+        {{ ref('stg_github_pull_requests_tmp') }}
     left join pull_request_commits using(number)
 ),
 
@@ -22,7 +21,7 @@ commits_author as (
         id as author_id,
         type as author_type,
         login as author_username
-    from {{ var('commits_author') }}
+    from {{ ref('stg_github_commits_author_tmp') }}
 ),
 
 
@@ -31,7 +30,7 @@ commits_committer as (
         _airbyte_commits_hashid,
         type as committer_type,
         login as committer_username
-    from {{ var('commits_committer') }}
+    from {{ ref('stg_github_commits_committer_tmp') }}
 ),
 
 commits_commit as (
@@ -39,10 +38,15 @@ commits_commit as (
         _airbyte_commits_hashid,
         comment_count,
         message
-    from {{ var('commits_commit') }}
+    from {{ ref('stg_github_commits_commit_tmp') }}
 ),
 
-commits as (
+commmits as (
+    select *
+    from {{ ref('stg_github_commits_tmp') }}
+)
+
+github_commits as (
     select
         sha,
         created_at,
@@ -56,12 +60,11 @@ commits as (
         committer_username,
         comment_count,
         message
-    from
-        {{ var('commits') }}
+    from commits
     left join pull_request using(sha)
     left join commits_author USING(_airbyte_commits_hashid)
     left join commits_committer USING(_airbyte_commits_hashid)
     left join commits_commit USING(_airbyte_commits_hashid)
 )
 
-select * from commits
+select * from github_commits

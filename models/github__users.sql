@@ -4,7 +4,7 @@ with commit_comments_user as (
         url,
         type,
         login as username
-    from {{ var('commit_comments_user') }}
+    from {{ ref('stg_github_commit_comments_user_tmp') }}
 ),
 
 commit_comment_reactions_user as (
@@ -13,7 +13,7 @@ commit_comment_reactions_user as (
         url,
         type,
         login as username
-    from {{ var('commit_comment_reactions_user') }}
+    from {{ ref('stg_github_commit_comment_reactions_user') }}
 ),
 
 issue_comment_reactions_user as (
@@ -22,7 +22,7 @@ issue_comment_reactions_user as (
         url,
         type,
         login as username
-    from {{ var('issue_comment_reactions_user') }}
+    from {{ ref('stg_github_issue_comment_reactions_user') }}
 ),
 
 issue_events_issue_user as (
@@ -31,7 +31,7 @@ issue_events_issue_user as (
         url,
         type,
         login as username
-    from {{ var('issue_events_issue_user') }}
+    from {{ ref('stg_github_issue_events_issue_user') }}
 ),
 
 issue_reactions_user as (
@@ -40,7 +40,7 @@ issue_reactions_user as (
         url,
         type,
         login as username
-    from {{ var('issue_reactions_user') }}
+    from {{ ref('stg_github_issue_reactions_user') }}
 ),
 
 issues_user as (
@@ -49,7 +49,7 @@ issues_user as (
         url,
         type,
         login as username
-    from {{ var('issues_user') }}
+    from {{ ref('stg_github_issues_user') }}
 ),
 
 pull_request_comment_reactions_user as (
@@ -58,7 +58,7 @@ pull_request_comment_reactions_user as (
         url,
         type,
         login as username
-    from {{ var('pull_request_comment_reactions_user') }}
+    from {{ ref('stg_github_pull_request_comment_reactions_user') }}
 ),
 
 pull_requests_user as (
@@ -67,7 +67,7 @@ pull_requests_user as (
         url,
         type,
         login as username
-    from {{ var('pull_requests_user') }}
+    from {{ ref('stg_github_pull_requests_user') }}
 ),
 
 review_comments_user as (
@@ -76,7 +76,7 @@ review_comments_user as (
         url,
         type,
         login as username
-    from {{ var('review_comments_user') }}
+    from {{ ref('stg_github_review_comments_user') }}
 ),
 
 reviews_user as (
@@ -85,7 +85,7 @@ reviews_user as (
         url,
         type,
         login as username
-    from {{ var('reviews_user') }}
+    from {{ ref('stg_github_reviews_user') }}
 ),
 
 stargazers_user as (
@@ -94,7 +94,7 @@ stargazers_user as (
         url,
         type,
         login as username
-    from {{ var('stargazers_user') }}
+    from {{ ref('stg_github_stargazers_user') }}
 ),
 
 users_unioned as (

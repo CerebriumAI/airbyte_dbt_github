@@ -18,10 +18,13 @@ clean-targets:
 models:
   airbyte_github:
     materialized: table
+    tmp:
+      materialized: view
     intermediate:
       materialized: ephemeral
 
 vars:
+  github_schema: "github_lowlighter_demo"
   airbyte_github:
     pull_requests: "{{ source('airbyte_github','pull_requests') }}"
     issues_pull_request: "{{ source('airbyte_github','issues_pull_request') }}"

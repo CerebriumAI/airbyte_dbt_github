@@ -10,14 +10,14 @@ with issues as (
         closed_at,
         updated_at,
         _airbyte_issues_hashid
-    from {{ var('issues') }}
+    from {{ ref('stg_github_issues_tmp') }}
 ),
 
 issue_assignees as (
     select
         login as assignee_username,
         _airbyte_issues_hashid
-    from {{ var('issue_assignees') }}
+    from {{ ref('stg_github_issue_assignees_tmp') }}
 ),
 
 users as (
@@ -25,7 +25,7 @@ users as (
         id as user_id,
         login as author_username,
         _airbyte_issues_hashid
-    from {{ var('issues_user') }}
+    from {{ ref('stg_github_issues_user_tmp') }}
 ),
 
 issues_unioned as (
