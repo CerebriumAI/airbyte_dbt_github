@@ -20,8 +20,6 @@ models:
     materialized: table
     tmp:
       materialized: view
-    intermediate:
-      materialized: ephemeral
 
 vars:
   github_schema: "github_lowlighter_demo"

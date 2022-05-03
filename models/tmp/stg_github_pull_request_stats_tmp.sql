@@ -1,3 +1,3 @@
 select
     *
-from {{ var('pull_requests') }}
+from {{ var('pull_requests_stats') }}
