@@ -1,100 +1,100 @@
 with commit_comments_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
-    from {{ var('commit_comments_user') }}
+        username
+    from {{ ref('stg_github_commit_comments_user_tmp') }}
 ),
 
 commit_comment_reactions_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
-    from {{ var('commit_comment_reactions_user') }}
+        username
+    from {{ ref('stg_github_commit_comment_reactions_user_tmp') }}
 ),
 
 issue_comment_reactions_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
-    from {{ var('issue_comment_reactions_user') }}
+        username
+    from {{ ref('stg_github_issue_comment_reactions_user_tmp') }}
 ),
 
 issue_events_issue_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
-    from {{ var('issue_events_issue_user') }}
+        username
+    from {{ ref('stg_github_issue_events_issue_user_tmp') }}
 ),
 
 issue_reactions_user as (
     select 
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
-    from {{ var('issue_reactions_user') }}
+        username
+    from {{ ref('stg_github_issue_reactions_user_tmp') }}
 ),
 
 issues_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
-    from {{ var('issues_user') }}
+        author_username as username
+    from {{ ref('stg_github_issues_user_tmp') }}
 ),
 
 pull_request_comment_reactions_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
-    from {{ var('pull_request_comment_reactions_user') }}
+        username
+    from {{ ref('stg_github_pull_request_comment_reactions_user_tmp') }}
 ),
 
 pull_requests_user as (
     select
-        id as user_id,
+        author_user_id as user_id,
         url,
         type,
-        login as username
-    from {{ var('pull_requests_user') }}
+        author_username as username
+    from {{ ref('stg_github_pull_requests_users_tmp') }}
 ),
 
 review_comments_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
-    from {{ var('review_comments_user') }}
+        username
+    from {{ ref('stg_github_review_comments_user_tmp') }}
 ),
 
 reviews_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
-    from {{ var('reviews_user') }}
+        username
+    from {{ ref('stg_github_reviews_user_tmp') }}
 ),
 
 stargazers_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
-    from {{ var('stargazers_user') }}
+        username
+    from {{ ref('stg_github_stargazers_user_tmp') }}
 ),
 
 users_unioned as (

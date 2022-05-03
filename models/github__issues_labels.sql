@@ -1,16 +1,16 @@
 with issues as (
     select
-        id as issue_id,
+        issue_id,
         _airbyte_issues_hashid
-    from {{ var('issues') }}
+    from {{ ref('stg_github_issues_tmp') }}
 
 ),
 
 labels as (
-    select
-        id as label_id,
+    select 
+        label_id,
         _airbyte_issues_hashid
-    from {{ var('labels') }}
+    from {{ ref('stg_github_labels_tmp') }}
 ),
 
 issue_labels as (

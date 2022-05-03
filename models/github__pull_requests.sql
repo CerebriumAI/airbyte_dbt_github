@@ -1,36 +1,36 @@
 with pull_requests as (
     select
-        id as pull_request_id,
+        pull_request_id,
         _airbyte_pull_requests_hashid,
         node_id,
         title,
         state,
         locked,
-        repository as repository_name,
-        url as link_url,
+        repository_name,
+        link_url,
         created_at,
         updated_at,
         closed_at,
         jsonb_array_length(requested_reviewers) as requested_reviewers_count
-    from {{ var('pull_requests') }}
+    from {{ ref('stg_github_pull_requests_tmp') }}
 ),
 
 pull_request_users as (
     select 
-        id as author_user_id,
-        login as author_username,
+        author_user_id,
+        author_username,
         _airbyte_pull_requests_hashid
-    from {{ var('pull_requests_user') }}
+    from {{ ref('stg_github_pull_requests_users_tmp') }}
 ),
 
 issues as (
     select
-        id as issue_id,
+        issue_id,
         node_id,
-        number as issue_number,
+        issue_number,
         milestone,
         _airbyte_issues_hashid
-    from {{ var('issues') }}
+    from {{ ref('stg_github_issues_tmp') }}
 
 ),
 
@@ -39,14 +39,14 @@ pull_request_stats as (
         node_id,
         comments,
         commits
-    from {{ var('pull_request_stats') }}
+    from {{ ref('stg_github_pull_request_stats_tmp') }}
 ),
 
 pull_request_reviews as (
     select
         pull_request_url,
         MIN(submitted_at) as first_review
-    from {{ var('reviews') }}
+    from {{ ref('stg_github_reviews_tmp') }}
     group by 1
 ),
 
