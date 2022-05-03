@@ -45,6 +45,7 @@ issues_unioned as (
     from issues
     left join issue_assignees on issue_assignees._airbyte_issues_hashid = issues._airbyte_issues_hashid
     left join users on users._airbyte_issues_hashid = issues._airbyte_issues_hashid
+    {{ dbt_utils.group_by(n=12) }}
 )
 
 select * from issues_unioned
