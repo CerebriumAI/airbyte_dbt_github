@@ -1,13 +1,13 @@
 with pull_requests as (
     select
-        id as pull_request_id,
+        pull_request_id,
         _airbyte_pull_requests_hashid,
         node_id,
         title,
         state,
         locked,
-        repository as repository_name,
-        url as link_url,
+        repository_name,
+        link_url,
         created_at,
         updated_at,
         closed_at,
@@ -17,17 +17,17 @@ with pull_requests as (
 
 pull_request_users as (
     select 
-        id as author_user_id,
-        login as author_username,
+        author_user_id,
+        author_username,
         _airbyte_pull_requests_hashid
     from {{ ref('stg_github_pull_requests_user_tmp') }}
 ),
 
 issues as (
     select
-        id as issue_id,
+        issue_id,
         node_id,
-        number as issue_number,
+        issue_number,
         milestone,
         _airbyte_issues_hashid
     from {{ ref('stg_github_issues_tmp') }}

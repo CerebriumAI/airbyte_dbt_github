@@ -1,14 +1,14 @@
 with pull_request_commits as (
     select
         sha,
-        pull_number as number
+        number
     from {{ ref('stg_github_pull_request_commits_tmp') }}
 ),
 
 pull_request as (
     select
-        id AS pull_request_id,
-        number as pull_request_number,
+        pull_request_id,
+        pull_request_number,
         sha
     from
         {{ ref('stg_github_pull_requests_tmp') }}
@@ -18,9 +18,9 @@ pull_request as (
 commits_author as (
     select
         _airbyte_commits_hashid,
-        id as author_id,
-        type as author_type,
-        login as author_username
+        author_id,
+        author_type,
+        author_username
     from {{ ref('stg_github_commits_author_tmp') }}
 ),
 
@@ -28,8 +28,8 @@ commits_author as (
 commits_committer as (
     select
         _airbyte_commits_hashid,
-        type as committer_type,
-        login as committer_username
+        committer_type,
+        committer_username
     from {{ ref('stg_github_commits_committer_tmp') }}
 ),
 

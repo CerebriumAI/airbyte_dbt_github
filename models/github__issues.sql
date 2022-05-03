@@ -1,9 +1,9 @@
 with issues as (
     select
-        id as issue_id,
+        issue_id,
         state,
         title,
-        number as issue_number,
+        issue_number,
         author_association,
         comments,
         created_at,
@@ -15,15 +15,15 @@ with issues as (
 
 issue_assignees as (
     select
-        login as assignee_username,
+        assignee_username,
         _airbyte_issues_hashid
     from {{ ref('stg_github_issue_assignees_tmp') }}
 ),
 
 users as (
     select
-        id as user_id,
-        login as author_username,
+        user_id,
+        author_username,
         _airbyte_issues_hashid
     from {{ ref('stg_github_issues_user_tmp') }}
 ),

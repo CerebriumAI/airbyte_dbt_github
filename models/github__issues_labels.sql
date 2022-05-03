@@ -1,6 +1,6 @@
 with issues as (
     select
-        id as label_id,
+        issue_id,
         _airbyte_issues_hashid
     from {{ ref('stg_github_issues_tmp') }}
 
@@ -8,7 +8,7 @@ with issues as (
 
 labels as (
     select 
-        id as label_id,
+        label_id,
         _airbyte_issues_hashid
     {{ ref('stg_github_labels_tmp') }}
 ),

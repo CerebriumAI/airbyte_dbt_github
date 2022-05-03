@@ -1,9 +1,9 @@
 with stargazers_users as (
     select
         _airbyte_stargazers_hashid,
-        site_admin as is_site_admin,
-        type as user_type,
-        login as username
+        is_site_admin,
+        user_type,
+        username
     from
         {{ ref('stg_github_stargazers_user_tmp') }}
 ),
@@ -16,7 +16,7 @@ stargazers as (
 github_stargazers as (
     select
         starred_at,
-        repository as repository_name,
+        repository_name,
         user_id,
         user_type,
         username,

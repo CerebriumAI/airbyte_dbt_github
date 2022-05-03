@@ -1,99 +1,97 @@
 with commit_comments_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
+        username
     from {{ ref('stg_github_commit_comments_user_tmp') }}
 ),
 
 commit_comment_reactions_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
+        username
     from {{ ref('stg_github_commit_comment_reactions_user') }}
 ),
 
 issue_comment_reactions_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
+        username
     from {{ ref('stg_github_issue_comment_reactions_user') }}
 ),
 
 issue_events_issue_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
+        username
     from {{ ref('stg_github_issue_events_issue_user') }}
 ),
 
 issue_reactions_user as (
     select 
-        id as user_id,
-        url,
-        type,
-        login as username
+        user_id,
+        username
     from {{ ref('stg_github_issue_reactions_user') }}
 ),
 
 issues_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
+        username
     from {{ ref('stg_github_issues_user') }}
 ),
 
 pull_request_comment_reactions_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
+        username
     from {{ ref('stg_github_pull_request_comment_reactions_user') }}
 ),
 
 pull_requests_user as (
     select
-        id as user_id,
+        author_user_id as user_id,
         url,
         type,
-        login as username
+        author_username as username
     from {{ ref('stg_github_pull_requests_user') }}
 ),
 
 review_comments_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
+        username
     from {{ ref('stg_github_review_comments_user') }}
 ),
 
 reviews_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
+        username
     from {{ ref('stg_github_reviews_user') }}
 ),
 
 stargazers_user as (
     select
-        id as user_id,
+        user_id,
         url,
         type,
-        login as username
+        username
     from {{ ref('stg_github_stargazers_user') }}
 ),
 
