@@ -8,9 +8,9 @@ with pull_requests as (
         locked,
         repository_name,
         link_url,
-        created_at,
-        updated_at,
-        closed_at,
+        closed_at as closed_at_timestamp,
+        created_at as created_at_timestamp,
+        updated_at as updated_at_timestamp,
         jsonb_array_length(requested_reviewers) as requested_reviewers_count
     from {{ ref('stg_github_pull_requests_tmp') }}
 ),
@@ -65,17 +65,17 @@ pull_request_union as (
         pull_request_stats.commits,
         pull_request_stats.comments,
         pull_requests.requested_reviewers_count,
-        ({{ dbt_utils.datediff('pull_requests.created_at', 'pull_requests.closed_at', 'minute') }}/1440) as days_pull_request_open,
-        ({{ dbt_utils.datediff('pull_requests.created_at', 'pull_request_reviews.first_review', 'minute') }}/1440) as days_until_first_review,
-        pull_requests.closed_at as closed_at_timestamp,
-        pull_requests.created_at as created_at_timestamp,
-        pull_requests.updated_at as updated_at_timestamp
+        created_at_timestamp,
+        updated_at_timestamp,
+        closed_at_timestamp,
+        ({{ dbt_utils.datediff('pull_requests.created_at_timestamp', 'pull_requests.closed_at_timestamp', 'minute') }}/1440) as days_pull_request_open,
+        ({{ dbt_utils.datediff('pull_requests.created_at_timestamp', 'pull_request_reviews.first_review', 'minute') }}/1440) as days_until_first_review
     from pull_requests
     left join pull_request_users on pull_requests._airbyte_pull_requests_hashid = pull_request_users._airbyte_pull_requests_hashid
     left join issues on pull_requests.node_id = issues.node_id
     left join pull_request_stats on pull_requests.node_id = pull_request_stats.node_id
     left join pull_request_reviews on pull_requests.link_url = pull_request_reviews.pull_request_url
-
+    {{ dbt_utils.group_by(n=17) }}
 )
 
 select * from pull_request_union

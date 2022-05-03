@@ -64,7 +64,7 @@ github_commits as (
     left join commits_author USING(_airbyte_commits_hashid)
     left join commits_committer USING(_airbyte_commits_hashid)
     left join commits_commit USING(_airbyte_commits_hashid)
-    
+    {{ dbt_utils.group_by(n=12) }}
 )
 
 select * from github_commits
