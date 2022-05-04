@@ -63,3 +63,4 @@ Additional contributions to this package are very welcome! Please create issues 
 
 ## Resources:
 - Provide [feedback](https://19au6qz3a6s.typeform.com/to/c284SPEN) on our existing dbt packages or what you'd like to see next
+- Join our [Slack community](https://join.slack.com/t/cerebriumworkspace/shared_invite/zt-18jv58mb5-TyxTOIUcAF4Ho4ZiyhAf8Q) where we inform you about changes to packages, our roadmap as well as reach out for any help
